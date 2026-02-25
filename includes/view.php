@@ -2,8 +2,14 @@
 
 declare(strict_types=1);
 
-// ฟังก์ชันสำหรับแสดงมุมมอง (view) โดยรับชื่อเทมเพลตและข้อมูลที่ต้องการส่งไปยังเทมเพลต
 function renderView(string $template, array $data = []): void
 {
-    include TEMPLATES_DIR . '/' . $template . '.php';
+     // make provided data available as variables inside templates
+     if (!empty($data)) {
+         extract($data, EXTR_SKIP);
+     }
+
+     include TEMPLATES_DIR . '/header.php';
+     include TEMPLATES_DIR . '/' . $template . '.php';
+     include TEMPLATES_DIR . '/footer.php';
 }

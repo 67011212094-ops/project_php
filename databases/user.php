@@ -1,0 +1,75 @@
+<?php
+
+// function getUser(): mysqli_result|bool
+// {
+//     $conn = getConnection();
+//     $sql = 'select * from user';
+//     $result = $conn->query($sql);
+//     return $result;
+// }
+
+function membership(String $username, String $fname, String $lname, String $date, String $gender, String $email, String $password, int $age):bool
+{
+    $conn = getConnection();
+    $sql = 'INSERT INTO user (username, password, fname, lname, email, gender,birthday, age) VALUES(?,?,?,?,?,?,?,?)';
+    $stmt = $conn->prepare($sql);
+    $hash = password_hash($password, PASSWORD_DEFAULT);
+    $stmt->bind_param('sssssssi', $username, $hash,$fname, $lname,$email, $gender,  $date, $age);
+    $stmt->execute();
+    if ($stmt->affected_rows > 0) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+// function getUserbyId(int $id): mysqli_result|bool
+// {
+//     $conn = getConnection();
+//     $sql = 'select * from user where userID = ?';
+//     $stmt = $conn->prepare($sql);
+//     $stmt->bind_param("i", $id);
+//     $stmt->execute();
+//     $result = $stmt->get_result();
+//     if ($stmt->affected_rows > 0) {
+//         return  $result;
+//     } else {
+//         return false;
+//     }
+// }
+
+class UserRegister
+{
+    private $conn;
+    private $table_name = "users";
+
+    public $name;
+    public $email;
+    public $password;
+
+    public function __construct($db)
+    {
+        $this->conn = $db;
+    }
+
+    public function setName($name)
+    {
+        $this->name = $name;
+    }
+     public function setEmail($email)
+    {
+        $this->email = $email;
+    }
+     public function setPassword($password)
+    {
+        $this->password = $password;
+    }
+
+    // public function validatePassword()
+    // {
+    //     if ($this->password != $this->password) {
+    //         return false;
+    //     }
+    //     return true;
+    // }
+}
