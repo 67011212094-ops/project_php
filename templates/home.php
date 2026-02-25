@@ -9,6 +9,7 @@
     </header>
     <nav>
         <a href="/">Home</a>
+        <a href="/events">events</a>
     </nav>
     <!-- Header และ Footer อาจแยกออกเป็นไฟล์แยกต่างหากได้ -->
 

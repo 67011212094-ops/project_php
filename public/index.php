@@ -19,7 +19,9 @@ require_once INCLUDES_DIR . '/database.php';
 
 
 // ทุกครั้งที่มีการร้องขอเข้ามา ให้เรียกใช้ฟังก์ชัน dispatch
-dispatch($_SERVER['REQUEST_URI'], $_SERVER['REQUEST_METHOD']);
+// มีการแก้ไขให้ใช้ parse_url เพื่อตัด Query String ออกก่อนส่งให้ Router ทำงาน
+$uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+dispatch($uri, $_SERVER['REQUEST_METHOD']);
 
 // ควบคุมการเข้าถึงหน้าเว็บด้วย session (ตัวอย่างการใช้งาน)
 // const PUBLIC_ROUTES = ['/', '/login'];
